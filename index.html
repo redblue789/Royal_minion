@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROYAL MINION — Казино</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<header>
+  <div class="brand"><div class="eye"></div><span>ROYAL MINION</span></div>
+  <nav class="main-nav">
+    <button class="nav-link active" data-target="lobby" data-i18n="nav_lobby">Лобі</button>
+    <button class="nav-link" data-target="about" data-i18n="nav_about">Про нас</button>
+  </nav>
+  <div class="header-right">
+    <div class="balance-pill">
+      <span class="amount" id="balanceDisplay">1000 🍌</span>
+      <button id="openTopup" title="Поповнити">+</button>
+    </div>
+    <div class="lang-switch">
+      <button id="langUA" class="active">UA</button>
+      <button id="langEN">EN</button>
+    </div>
+    <button class="icon-btn" id="openSettings" title="Налаштування">⚙</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- LOBBY -->
+  <section class="screen active" id="screen-lobby">
+    <div class="hero">
+      <h1 data-i18n="hero_title">Ласкаво просимо до ROYAL MINION</h1>
+      <p data-i18n="hero_sub">Віртуальне казино без реальних грошей. Тільки банани, азарт і жовтий гумор.</p>
+      <span class="badge" data-i18n="hero_badge">100% ВІРТУАЛЬНО · БЕЗ ДЕПОЗИТУ РЕАЛЬНИХ ГРОШЕЙ</span>
+    </div>
+
+    <div class="game-grid">
+      <div class="game-card" data-target="poker">
+        <div class="icon">🂡</div>
+        <h3 data-i18n="card_poker_title">Покер проти бота</h3>
+        <p data-i18n="card_poker_desc">Драв-покер 5 карт проти хитрого міньйона-бота.</p>
+        <span class="play" data-i18n="card_play">Грати</span>
+      </div>
+      <div class="game-card" data-target="slots">
+        <div class="icon">🍌</div>
+        <h3 data-i18n="card_slots_title">Слот 777</h3>
+        <p data-i18n="card_slots_desc">Класичний ігровий автомат із трьома барабанами.</p>
+        <span class="play" data-i18n="card_play">Грати</span>
+      </div>
+      <div class="game-card" data-target="roulette">
+        <div class="icon">🎯</div>
+        <h3 data-i18n="card_roulette_title">Чорне — Червоне</h3>
+        <p data-i18n="card_roulette_desc">Обери колір і крутни колесо фортуни.</p>
+        <span class="play" data-i18n="card_play">Грати</span>
+      </div>
+      <div class="game-card" data-target="racing">
+        <div class="icon">🐴</div>
+        <h3 data-i18n="card_racing_title">Кінні перегони</h3>
+        <p data-i18n="card_racing_desc">Онлайн ставки на спорт: обери коня з-поміж 6.</p>
+        <span class="play" data-i18n="card_play">Грати</span>
+      </div>
+      <div class="game-card" data-target="crash">
+        <div class="icon">🚀</div>
+        <h3 data-i18n="card_crash_title">Краш</h3>
+        <p data-i18n="card_crash_desc">Мультиплікатор росте — забери виграш вчасно!</p>
+        <span class="play" data-i18n="card_play">Грати</span>
+      </div>
+      <div class="game-card" data-target="range">
+  <div class="icon">🎯</div>
+  <h3 data-i18n="card_range_title">Міньйонський тир</h3>
+  <p data-i18n="card_range_desc">Обери іграшковий бластер і влучай у міньйонів на дальній дистанції.</p>
+  <span class="play" data-i18n="card_play">Грати</span>
+</div>
+    </div>
+  </section>
+
+  <!-- MINION RANGE -->
+  <section class="screen" id="screen-range">
+    <button class="back-btn" data-target="lobby">← Назад до лобі</button>
+    <div class="panel">
+      <h2>🎯 Міньйонський тир</h2>
+      <p class="msg info">Спочатку обери бластер. У кожному раунді є рівно 5 пострілів, а наступні раунди стають складнішими.</p>
+      <div class="gun-grid" id="gunGrid">
+        <div class="gun-card" data-gun="starter"><span class="gun-icon">🔫</span><b>Banana Blaster</b><br><small>точний і стабільний</small></div>
+        <div class="gun-card" data-gun="rapid"><span class="gun-icon">🎯</span><b>Mini Blaster</b><br><small>швидше прицілювання</small></div>
+        <div class="gun-card" data-gun="power"><span class="gun-icon">🛸</span><b>Royal Blaster</b><br><small>велика зона влучання</small></div>
+      </div>
+      <div class="range-hud">
+        <div class="range-stat">Раунд: <b id="rangeRound">1</b></div>
+        <div class="range-stat">Постріли: <b id="rangeShots">5 / 5</b></div>
+        <div class="range-stat">Влучання: <b id="rangeScore">0</b></div>
+      </div>
+      <div class="range-arena" id="rangeArena">
+        <div class="range-sky"></div><div class="range-ground"></div><div class="range-crosshair" id="rangeCrosshair"></div>
+      </div>
+      <div class="bet-row" style="justify-content:center;">
+        <button class="btn btn-primary" id="rangeStart" disabled>Почати раунд</button>
+        <button class="btn btn-secondary" id="rangeRestart" style="display:none">Заново</button>
+      </div>
+      <div class="msg info" id="rangeMsg">Обери бластер, потім натисни «Почати раунд».</div>
+    </div>
+  </section>
+
+  <!-- POKER -->
+  <section class="screen" id="screen-poker">
+    <button class="back-btn" data-target="lobby" data-i18n="back">← Назад до лобі</button>
+    <div class="panel">
+      <h2>🂡 <span data-i18n="poker_title">Покер проти бота (драв-покер, 5 карт)</span></h2>
+      <div class="bet-row">
+        <label data-i18n="bet_label">Ставка (анте):</label>
+        <input type="number" id="pokerBet" value="50" min="10" step="10">
+        <button class="chip" onclick="quickBet('pokerBet',50)">+50</button>
+        <button class="chip" onclick="quickBet('pokerBet',100)">+100</button>
+        <button class="btn btn-primary" id="pokerDeal" onclick="pokerDeal()" data-i18n="poker_deal">Роздати</button>
+      </div>
+
+      <div class="poker-table">
+        <div class="label-row" data-i18n="poker_bot_hand">Рука бота</div>
+        <div class="hand-row" id="botHand"></div>
+        <div class="label-row" id="pokerStageLabel" data-i18n="poker_your_hand">Твоя рука (клікни картку, щоб залишити її)</div>
+        <div class="hand-row" id="playerHand"></div>
+        <div class="bet-row" style="justify-content:center;">
+          <button class="btn btn-secondary" id="pokerDraw" onclick="pokerDraw()" disabled data-i18n="poker_draw">Замінити не вибрані</button>
+          <button class="btn btn-primary" id="pokerBetBtn" onclick="pokerBetAction()" disabled data-i18n="poker_bet_action">Поставити ще й показати</button>
+          <button class="btn btn-danger" id="pokerFold" onclick="pokerFold()" disabled data-i18n="poker_fold">Скинути</button>
+        </div>
+      </div>
+      <div class="msg info" id="pokerMsg" data-i18n="poker_hint">Онлайн-покер без депозиту — просто для розваги.</div>
+    </div>
+  </section>
+
+  <!-- SLOTS -->
+  <section class="screen" id="screen-slots">
+    <button class="back-btn" data-target="lobby" data-i18n="back">← Назад до лобі</button>
+    <div class="panel" style="text-align:center;">
+      <h2>🍌 <span data-i18n="slots_title">Слот-автомат 777</span></h2>
+      <div class="slot-machine">
+        <div class="reels">
+          <div class="reel" id="reel0"><span>🍌</span></div>
+          <div class="reel" id="reel1"><span>🍌</span></div>
+          <div class="reel" id="reel2"><span>🍌</span></div>
+        </div>
+      </div>
+      <div class="bet-row" style="justify-content:center;">
+        <label data-i18n="bet_label">Ставка:</label>
+        <input type="number" id="slotsBet" value="20" min="5" step="5">
+        <button class="chip" onclick="quickBet('slotsBet',20)">+20</button>
+        <button class="chip" onclick="quickBet('slotsBet',50)">+50</button>
+        <button class="btn btn-primary" id="slotsSpin" onclick="spinSlots()" data-i18n="slots_spin">Крутити</button>
+      </div>
+      <div class="msg info" id="slotsMsg" data-i18n="slots_hint">Три однакові символи — виграш!</div>
+      <div class="paytable" data-i18n="slots_paytable">7️⃣7️⃣7️⃣ ×20 · 🍌🍌🍌 ×10 · 🍇🍇🍇 ×6 · 🔔🔔🔔 ×5 · будь-які 2 однакові ×1.5</div>
+    </div>
+  </section>
+
+  <!-- ROULETTE -->
+  <section class="screen" id="screen-roulette">
+    <button class="back-btn" data-target="lobby" data-i18n="back">← Назад до лобі</button>
+    <div class="panel roulette-wrap">
+      <h2>🎯 <span data-i18n="roulette_title">Рулетка: Чорне — Червоне</span></h2>
+      <div class="wheel-pointer"></div>
+      <div class="wheel-outer" id="wheel"><div class="center" id="wheelCenter" data-i18n="roulette_ready">Готові?</div></div>
+      <div class="color-choice">
+        <button class="color-btn red" id="chooseRed" onclick="chooseColor('red')" data-i18n="roulette_red">Червоне ×2</button>
+        <button class="color-btn black" id="chooseBlack" onclick="chooseColor('black')" data-i18n="roulette_black">Чорне ×2</button>
+      </div>
+      <div class="bet-row">
+        <label data-i18n="bet_label">Ставка:</label>
+        <input type="number" id="rouletteBet" value="30" min="5" step="5">
+        <button class="chip" onclick="quickBet('rouletteBet',30)">+30</button>
+        <button class="chip" onclick="quickBet('rouletteBet',100)">+100</button>
+        <button class="btn btn-primary" id="spinRoulette" onclick="spinRoulette()" disabled data-i18n="roulette_spin">Крутити колесо</button>
+      </div>
+      <div class="msg info" id="rouletteMsg" data-i18n="roulette_hint">Обери колір, зроби ставку і крути!</div>
+    </div>
+  </section>
+
+  <!-- RACING -->
+  <section class="screen" id="screen-racing">
+    <button class="back-btn" data-target="lobby" data-i18n="back">← Назад до лобі</button>
+    <div class="panel">
+      <h2>🐴 <span data-i18n="racing_title">Кінні перегони — 6 коней</span></h2>
+      <div class="track" id="track"></div>
+      <div class="bet-row">
+        <label data-i18n="bet_label">Ставка:</label>
+        <input type="number" id="racingBet" value="40" min="5" step="5">
+        <button class="chip" onclick="quickBet('racingBet',40)">+40</button>
+        <button class="chip" onclick="quickBet('racingBet',100)">+100</button>
+        <button class="btn btn-primary" id="startRace" onclick="startRace()" disabled data-i18n="racing_start">Старт перегонів</button>
+      </div>
+      <div class="msg info" id="racingMsg" data-i18n="racing_hint">Обери коня, натиснувши на його доріжку.</div>
+    </div>
+  </section>
+
+  <!-- CRASH -->
+  <section class="screen" id="screen-crash">
+    <button class="back-btn" data-target="lobby" data-i18n="back">← Назад до лобі</button>
+    <div class="panel">
+      <h2>🚀 <span data-i18n="crash_title">Краш</span></h2>
+      <div class="crash-box">
+        <canvas id="crashCanvas"></canvas>
+        <div class="crash-mult" id="crashMultDisplay">1.00×</div>
+      </div>
+      <div class="bet-row">
+        <label data-i18n="bet_label">Ставка:</label>
+        <input type="number" id="crashBet" value="25" min="5" step="5">
+        <button class="chip" onclick="quickBet('crashBet',25)">+25</button>
+        <button class="chip" onclick="quickBet('crashBet',100)">+100</button>
+        <button class="btn btn-primary" id="crashStart" onclick="crashStart()" data-i18n="crash_start">Старт</button>
+        <button class="btn btn-secondary" id="crashCashout" onclick="crashCashout()" disabled data-i18n="crash_cashout">Забрати гроші</button>
+      </div>
+      <div class="msg info" id="crashMsg" data-i18n="crash_hint">Постав суму і забери виграш до того, як лінія впаде.</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="screen" id="screen-about">
+    <button class="back-btn" data-target="lobby" data-i18n="back">← Назад до лобі</button>
+    <div class="panel about-grid">
+      <div>
+        <h2 data-i18n="about_title">Про ROYAL MINION</h2>
+        <p data-i18n="about_p1">ROYAL MINION — це віртуальне розважальне казино, створене командою міньйонів, які трохи забагато з'їли бананів і вирішили побудувати щось жовте й веселе.</p>
+        <p data-i18n="about_p2">Усі гроші в казино — вигадані. Тут не можна поповнити рахунок реальними коштами, вивести кошти чи програти щось справжнє. Це майданчик для розваги та демонстрації ігрової механіки.</p>
+        <p data-i18n="about_p3">Баланс поповнюється віртуально в один клік у розділі балансу вгорі сторінки — введи будь-яку суму й натисни «Поповнити».</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div class="stat"><b>6</b><span data-i18n="about_stat_games">ігор у казино</span></div>
+        <div class="stat"><b>0₴</b><span data-i18n="about_stat_real">реальних грошей всередині</span></div>
+        <div class="stat"><b>∞</b><span data-i18n="about_stat_bananas">бананів у резерві</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div data-i18n="footer_disclaimer">Гра не пов'язана з реальними грошима та азартними іграми на реальні ставки. Умовний вік: 18+.</div>
+  <div style="margin-top:6px;">© <b data-i18n="footer_team">Команда Міньйони</b> — ROYAL MINION, 2026</div>
+</footer>
+
+<!-- SETTINGS MODAL -->
+<div class="overlay" id="settingsOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('settingsOverlay')">×</button>
+    <h2 data-i18n="settings_title">⚙ Налаштування</h2>
+    <div class="setting-row">
+      <span data-i18n="settings_sound">Звукові ефекти</span>
+      <label class="switch"><input type="checkbox" id="soundToggle" checked><span class="slider-toggle"></span></label>
+    </div>
+    <div class="setting-row">
+      <span data-i18n="settings_anim">Плавні анімації</span>
+      <label class="switch"><input type="checkbox" id="animToggle" checked><span class="slider-toggle"></span></label>
+    </div>
+    <div class="setting-row">
+      <span data-i18n="settings_confirm">Підтвердження ставок</span>
+      <label class="switch"><input type="checkbox" id="confirmToggle"><span class="slider-toggle"></span></label>
+    </div>
+    <div class="setting-row">
+      <span data-i18n="settings_lang">Мова інтерфейсу</span>
+      <div class="lang-switch">
+        <button id="langUA2" class="active">UA</button>
+        <button id="langEN2">EN</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <span data-i18n="settings_reset">Скинути баланс до 1000</span>
+      <button class="btn btn-danger" style="padding:6px 14px; font-size:12px;" onclick="resetBalance()" data-i18n="settings_reset_btn">Скинути</button>
+    </div>
+    <p style="font-size:12px; color:#7c828d; margin-top:14px;" data-i18n="settings_footer">ROYAL MINION зберігає ці налаштування лише під час поточного сеансу.</p>
+  </div>
+</div>
+
+<!-- TOPUP MODAL -->
+<div class="overlay" id="topupOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('topupOverlay')">×</button>
+    <h2 data-i18n="topup_title">🍌 Поповнення балансу</h2>
+    <p style="font-size:13.5px; color:#a9afb8;" data-i18n="topup_desc">Це віртуальний баланс. Введи будь-яку суму, щоб миттєво поповнити рахунок для гри — без реальних грошей.</p>
+    <div class="bet-row">
+      <input type="number" id="topupAmount" placeholder="1000" min="1" style="flex:1;">
+    </div>
+    <div class="bet-row">
+      <button class="chip" onclick="document.getElementById('topupAmount').value=500">500</button>
+      <button class="chip" onclick="document.getElementById('topupAmount').value=1000">1000</button>
+      <button class="chip" onclick="document.getElementById('topupAmount').value=5000">5000</button>
+    </div>
+    <button class="btn btn-primary" style="width:100%; margin-top:10px;" onclick="doTopup()" data-i18n="topup_btn">Поповнити</button>
+    <div class="msg info" id="topupMsg"></div>
+  </div>
+</div>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
